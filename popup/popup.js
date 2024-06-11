@@ -1,13 +1,13 @@
 function setAPIKey(apiKey) {
-    browser.tabs.query({ active: true, currentWindow: true })
+    chrome.tabs.query({ active: true, currentWindow: true })
         .then((tabs) => {
-            browser.tabs.sendMessage(tabs[0].id, {
+            chrome.tabs.sendMessage(tabs[0].id, {
                 action: "setAPIKey",
                 apiKey: apiKey,
             });
         })
         .then(() => {
-            displayMessage("API key set successfully.");
+            alert("API key set successfully.");
         })
         .catch(reportError);
 }
@@ -18,7 +18,7 @@ document.addEventListener("click", (e) => {
         if (apiKey) {
             setAPIKey(apiKey);
         } else {
-            displayMessage("Please enter a valid API key.", true);
+            setAPIKey("disable");
         }
     }
 });

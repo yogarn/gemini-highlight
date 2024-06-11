@@ -1,33 +1,29 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Highlight Answer Extension",
   "version": "1.0",
   "description": "Select text and get the correct answer from choices",
   "permissions": [
     "activeTab",
-    "https://*/*",
-    "tabs"
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*/*"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
   ],
-  "browser_action": {
-    "default_popup": "popup/popup.html",
-    "default_icon": {
-      "16": "icons/icon-16.png",
-      "48": "icons/icon-48.png",
-      "128": "icons/icon-128.png"
-    }
-  },
-  "icons": {
-    "16": "icons/icon-16.png",
-    "48": "icons/icon-48.png",
-    "128": "icons/icon-128.png"
+  "action": {
+    "default_popup": "popup/popup.html"
   }
 }

@@ -2,20 +2,38 @@ let isAPIKeyEnabled = false;
 let currentAPIKey = "";
 
 function setAPIKey(newAPIKey) {
-    currentAPIKey = newAPIKey;
-    isAPIKeyEnabled = !!newAPIKey;
-    alert("API key set");
+  currentAPIKey = newAPIKey;
+  if (newAPIKey && newAPIKey != "disable") {
+    isAPIKeyEnabled = true;
+  } else {
+    isAPIKeyEnabled = false;
+  }
+
+  chrome.storage.local.set({ apiKey: newAPIKey }, () => {
+    console.log('API key saved:', newAPIKey);
+  });
 }
 
-browser.runtime.onMessage.addListener((message) => {
+function getSavedAPIKey(callback) {
+  chrome.storage.local.get(['apiKey'], (result) => {
+    const savedAPIKey = result.apiKey || "";
+    setAPIKey(savedAPIKey);
+    callback(savedAPIKey);
+  });
+}
+
+getSavedAPIKey((savedAPIKey) => {
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "setAPIKey") {
-        setAPIKey(message.apiKey);
+      setAPIKey(message.apiKey);
+      sendResponse({ success: true });
     }
+  });
 });
 
 async function getAnswer(selectedText, choices) {
   if (!isAPIKeyEnabled) {
-    alert("API key is not enabled.");
+    console.log("api key disabled");
     return;
   }
 
@@ -61,7 +79,7 @@ async function handleHighlightedText() {
         setRadioButton(answer);
       }
     } catch (e) {
-      alert("internal server error");
+      alert("Internal server error");
     }
   }
 }
