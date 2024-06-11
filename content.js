@@ -31,10 +31,10 @@ getSavedAPIKey((savedAPIKey) => {
   });
 });
 
-async function getAnswer(selectedText, choices) {
+async function getAnswer(selectedText) {
   if (!isAPIKeyEnabled) {
     console.log("api key disabled");
-    return;
+    return undefined;
   }
 
   const response = await fetch(
@@ -49,9 +49,7 @@ async function getAnswer(selectedText, choices) {
           {
             parts: [
               {
-                text: `Pilih jawaban yang paling tepat, langsung berikan jawaban eksak berdasarkan pilihan:\n${selectedText}\n${choices.join(
-                  "\n"
-                )}`,
+                text: `Pilih jawaban yang paling tepat, berikan jawaban eksak berdasarkan pilihan, tanpa penjelasan detail:\n${selectedText}`,
               },
             ],
           },
@@ -61,37 +59,23 @@ async function getAnswer(selectedText, choices) {
   );
 
   const data = await response.json();
+  console.log(data);
   const correctAnswer = data.candidates[0].content.parts[0].text.trim();
   return correctAnswer;
 }
 
 async function handleHighlightedText() {
   const selectedText = window.getSelection().toString().trim();
-  const choices = Array.from(
-    document.querySelectorAll('input[name="answer"]')
-  ).map((input) => input.value);
-
   if (selectedText) {
     try {
-      const answer = await getAnswer(selectedText, choices);
+      const answer = await getAnswer(selectedText);
       if (answer != undefined) {
         alert(answer);
-        setRadioButton(answer);
       }
     } catch (e) {
       alert("Internal server error");
+      console.error(e);
     }
-  }
-}
-
-function setRadioButton(answer) {
-  const radioButtons = document.querySelectorAll('input[name="answer"]');
-  if (radioButtons) {
-    radioButtons.forEach((button) => {
-      if (button.value.trim() === answer) {
-        button.checked = true;
-      }
-    });
   }
 }
 
