@@ -49,7 +49,7 @@ async function getAnswer(selectedText) {
           {
             parts: [
               {
-                text: `Pilih jawaban yang paling tepat, berikan jawaban eksak berdasarkan pilihan, tanpa penjelasan detail:\n${selectedText}`,
+                text: `Pilih jawaban yang paling tepat, berikan jawaban eksak berdasarkan pilihan, tanpa penjelasan detail. Jika tidak terdapat pilihan jawaban, berikan jawaban dalam bentuk uraian singkat.\n${selectedText}`,
               },
             ],
           },
