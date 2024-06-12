@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Highlight Answer Extension</title>
+    <style>
+        .hidden { display: none; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div id="popup-content">
+        <button id="enable-api-key">Aktifkan API Key</button>
+        <input type="text" id="api-key-input" placeholder="Masukkan API Key" />
+        <div id="message" class="hidden"></div>
+    </div>
+    <div id="error-content" class="hidden">
+        <p id="error-message">There was an error.</p>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
