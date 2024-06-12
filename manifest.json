@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Highlight Answer Extension",
+  "name": "Gemini Highlight",
   "version": "1.0",
   "description": "Select text and get the correct answer from choices",
   "permissions": [
