@@ -9,13 +9,13 @@ function setAPIKey(newAPIKey) {
     isAPIKeyEnabled = false;
   }
 
-  chrome.storage.local.set({ apiKey: newAPIKey }, () => {
+  browser.storage.local.set({ apiKey: newAPIKey }, () => {
     console.log('API key saved:', newAPIKey);
   });
 }
 
 function getSavedAPIKey(callback) {
-  chrome.storage.local.get(['apiKey'], (result) => {
+  browser.storage.local.get(['apiKey'], (result) => {
     const savedAPIKey = result.apiKey || "";
     setAPIKey(savedAPIKey);
     callback(savedAPIKey);
@@ -23,10 +23,11 @@ function getSavedAPIKey(callback) {
 }
 
 getSavedAPIKey((savedAPIKey) => {
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "setAPIKey") {
       setAPIKey(message.apiKey);
       sendResponse({ success: true });
+      alert('API key saved');
     }
   });
 });
@@ -80,7 +81,11 @@ async function handleHighlightedText() {
 }
 
 function setupHighlightListener() {
-  document.addEventListener("mouseup", handleHighlightedText);
+  document.addEventListener("keyup", (event) => {
+    if (event.key === "Shift") {
+      handleHighlightedText();
+    }
+  });
 }
 
 setupHighlightListener();
