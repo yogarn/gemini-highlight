@@ -8,6 +8,7 @@ This extension allows you to search for multiple choice answers directly by high
 4. Click the extension icon, provide your Gemini API Key, and click save
 5. Highlight the question and its options that you want to search for, then press shift
 6. An alert box will appear as the answer
+7. To disable this extension, simply enter an empty API and click the save button
 
 ## Demo
 [Screencast from 2024-06-13 20-09-08.webm](https://github.com/yogarn/gemini-highlight/assets/144443155/a919fa56-4f7d-45e9-99cc-3f29fbc43fe0)
