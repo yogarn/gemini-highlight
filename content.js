@@ -88,4 +88,28 @@ function setupHighlightListener() {
   });
 }
 
+function enableTextSelection() {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    * {
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+      -ms-user-select: text !important;
+      user-select: text !important;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function removeSelectionListeners() {
+  ['selectstart', 'mousedown', 'mouseup'].forEach(event => {
+    document.addEventListener(event, (e) => {
+      e.stopPropagation();
+    }, true);
+  });
+}
+
+
+enableTextSelection();
+removeSelectionListeners();
 setupHighlightListener();
