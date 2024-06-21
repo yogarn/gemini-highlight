@@ -81,8 +81,8 @@ async function handleHighlightedText() {
 }
 
 function setupHighlightListener() {
-  document.addEventListener("keyup", (event) => {
-    if (event.key === "Shift") {
+  document.addEventListener("keydown", (event) => {
+    if (event.ctrlKey && event.altKey && event.shiftKey) {
       handleHighlightedText();
     }
   });
