@@ -4,7 +4,7 @@ This extension allows you to search for multiple choice answers directly by high
 ## Installation & Usage
 1. Clone or download this repository
 2. Obtain Gemini API key (https://aistudio.google.com/app/apikey)
-3. Load this project as an extension in a browser (firefox, chrome, edge, etc)
+3. Load this project as an extension in firefox browser (there might be compatibility issues with another browser, especially chromium based at the current moment).
 4. Click the extension icon, provide your Gemini API Key, and click save
 5. Highlight the question and its options that you want to search for, then press `ctrl` + `alt` + `shift`
 6. An alert box will appear as the answer
